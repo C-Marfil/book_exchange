@@ -1,0 +1,32 @@
+{
+  "name": "book_library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "node scripts/create-database.js test",
+    "test": "mocha tests/**/*.js --exit --recursive --timeout 60000 --file ./tests/test-setup.js",
+    "posttest": "node scripts/drop-database.js test",
+    "prestart": "node scripts/create-database.js",
+    "start": "nodemon -r dotenv/config index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/C-Marfil/book_library.git"
+  },
+  "author": "CM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/C-Marfil/book_library/issues"
+  },
+  "homepage": "https://github.com/C-Marfil/book_library#readme",
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "supertest": "^6.3.3"
+  }
+}
