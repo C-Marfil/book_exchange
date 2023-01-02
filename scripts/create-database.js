@@ -32,7 +32,7 @@ const createDatabase = async (databaseName) => {
     
       await client.query(`CREATE DATABASE ${databaseName}`)
     
-      console.log('Database created!')
+      console.log(`Database ${databaseName} created!`)
     } catch (err) {
   
       switch (err.code) {
