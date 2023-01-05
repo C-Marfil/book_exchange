@@ -18,7 +18,7 @@ const setUpDatabase = () => {
         connection.sync({alter: true});
         return {
             Reader,
-            Book
+            Book,
         };
 };
 

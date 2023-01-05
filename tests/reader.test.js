@@ -32,8 +32,38 @@ describe('/readers', () => {
       it('errors if email format not valid', async () => {
         const response = await request(app).post('/readers').send({
           name: 'Mariah Carey',
-          email: 'future_ms_darcygmail.com',
+          email: 'allIwantforXmasgmail.com',
           password: 'sieteochonueve',
+        });
+        const newReaderRecord = await Reader.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors.length).to.equal(1);
+        expect(newReaderRecord).to.equal(null);
+      });
+
+      it('errors if any fields are missing', async () => {
+        const response = await request(app).post('/readers').send({
+          name: '',
+          email: '',
+          password: '',
+        });
+        const newReaderRecord = await Reader.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors.length).to.equal(3);
+        expect(newReaderRecord).to.equal(null);
+      });
+
+      it('errors password is less than 8 char length', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Mariah Carey',
+          email: 'alliwantforxmas@gmail.com',
+          password: 'siete',
         });
         const newReaderRecord = await Reader.findByPk(response.body.id, {
           raw: true,
