@@ -24,8 +24,24 @@ describe('/readers', () => {
 
         expect(response.status).to.equal(201);
         expect(response.body.name).to.equal('Elizabeth Bennet');
+
         expect(newReaderRecord.name).to.equal('Elizabeth Bennet');
         expect(newReaderRecord.email).to.equal('future_ms_darcy@gmail.com');
+      });
+
+      it('errors if email format not valid', async () => {
+        const response = await request(app).post('/readers').send({
+          name: 'Mariah Carey',
+          email: 'future_ms_darcygmail.com',
+          password: 'sieteochonueve',
+        });
+        const newReaderRecord = await Reader.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors.length).to.equal(1);
+        expect(newReaderRecord).to.equal(null);
       });
     });
   });

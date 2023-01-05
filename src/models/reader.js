@@ -2,13 +2,17 @@ module.exports = (connection, DataTypes) => {
     const schema = {
         name: {
             type: DataTypes.STRING,
-            allowNull: {
-                arg:[false],
-                msg: 'We need a book title'
-            },
-            unique: {
-                arg:[true],
-                msg: 'This title already exists'
+            allowNull: false,
+            unique: true,
+            validate: {
+                notNull: {
+                    args: [true],
+                    msg: 'We need your name',
+                  },
+                notEmpty: {
+                args: [true],
+                msg: 'Name cannot be empty',
+                },
             }
         },
         email: {
@@ -19,6 +23,10 @@ module.exports = (connection, DataTypes) => {
                     arg: true,
                     msg: 'Make sure this is a valid email'
                 },
+                notNull: {
+                    args: [true],
+                    msg: 'We need your email',
+                  },
             },
         },
         password: {
@@ -29,6 +37,10 @@ module.exports = (connection, DataTypes) => {
                     args: [8],
                     msg: 'Please make sure your password is at least 8 characters long'
                 },
+                notNull: {
+                    args: [true],
+                    msg: 'We need a password',
+                  },
             },
         },
     };
