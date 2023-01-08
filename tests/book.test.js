@@ -29,6 +29,22 @@ describe('/books', () => {
         expect(newBookRecord.genre).to.equal('YA Fiction');
         expect(newBookRecord.ISBN).to.equal('39393939');
       });
+
+      it('errors if title or author are null', async () => {
+        const response = await request(app).post('/books').send({
+            title: null,
+            author: null,
+            genre: "YA Fiction",
+            ISBN: "39393939"
+          });
+        const newBookRecord = await Book.findByPk(response.body.id, {
+          raw: true,
+        });
+
+        expect(response.status).to.equal(400);
+        expect(response.body.errors.length).to.equal(2);
+        expect(newBookRecord).to.equal(null);
+      });
     });
   });
 });
