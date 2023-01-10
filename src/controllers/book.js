@@ -1,13 +1,25 @@
-const { Book } = require('../models');
+const { 
+    createEntry,
+    getAllEntries,
+    getEntryById,
+    updateEntry,
+    deleteEntry,
+} = require('./helper');
 
-exports.bookCreate = async (req, res) => {
-    try {
-        const newBook = await Book.create(req.body);
-        res.status(201).json(newBook);
+const bookCreate = (req, res) => createEntry(res, 'book', req.body);
 
-    } catch (error) {
-        const errorMessages = error.errors?.map((e) => e.message);
+const bookGetAll = (_req, res) => getAllEntries(res, 'book');
 
-        res.status(400).json({ errors: errorMessages });
-    };
+const bookGetById = (req, res) => getEntryById(res, 'book', req.params.id);
+
+const bookUpdate = (req, res) => updateEntry(res, 'book', req.params.id, req.body);
+
+const bookDelete = (req, res) => deleteEntry(res, 'book', req.params.id);
+
+module.exports = {
+    bookCreate,
+    bookGetAll,
+    bookGetById,
+    bookUpdate,
+    bookDelete,
 };
