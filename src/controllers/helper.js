@@ -1,12 +1,21 @@
-const { Book, Reader } = require('../models');
+const { Book, Reader, Author, Genre, } = require('../models');
 
 
 const get404Error = (model) => ({ error: `The ${model} could not be found.` });
+
+const removePassword = (obj) => {
+    if (obj.hasOwnProperty('password')) {
+        delete obj.password;
+    }
+    return obj;
+};
 
 const getModel = (model) => {
     const models = {
         reader: Reader,
         book: Book,
+        author: Author,
+        genre: Genre
     };
 
     return models[model];
@@ -17,8 +26,9 @@ const createEntry = async (res, model, body) => {
 
     try {
         const newEntry = await Model.create(body);
+        const newEntryMinusPassword = removePassword(newEntry.get());
         
-        res.status(201).json(newEntry);
+        res.status(201).json(newEntryMinusPassword);
     } catch (error) {
         const errorMessages = error.errors?.map((e) => e.message);
     
@@ -31,7 +41,11 @@ const getAllEntries = async (res, model) => {
 
     const entries = await Model.findAll();
 
-    res.status(200).json(entries);
+    const entriesWithoutPasswords = entries.map((entry) => {
+        return removePassword(entry.get());
+    });
+
+    res.status(200).json(entriesWithoutPasswords);
 };
 
 const getEntryById = async (res, model, id) => {
@@ -42,7 +56,8 @@ const getEntryById = async (res, model, id) => {
     if(!entry) {
     res.status(404).json(get404Error(model));
     } else {
-    res.status(200).json(entry);
+        const entryWithoutPassword = removePassword(entry.get());
+        res.status(200).json(entryWithoutPassword);
     };
 };
 
@@ -55,7 +70,9 @@ const updateEntry = async (res, model, id, changes) => {
         res.status(404).json(get404Error(model));
     } else {
         const updatedEntry = await Model.findByPk(id);
-        res.status(200).json(updatedEntry);
+        const entryWithoutPassword = removePassword(updatedEntry.get());
+
+        res.status(200).json(entryWithoutPassword);
     };   
 };
 
