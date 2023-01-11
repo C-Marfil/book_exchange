@@ -10,6 +10,16 @@ const removePassword = (obj) => {
     return obj;
 };
 
+const getOptions = (model) => {
+    if (model === 'book') return { include: Genre };
+  
+    if (model === 'genre') return { include: Book };
+  
+    if (model === 'reader') return { include: Book };
+    
+    return {};
+  };
+
 const getModel = (model) => {
     const models = {
         reader: Reader,
@@ -38,8 +48,9 @@ const createEntry = async (res, model, body) => {
 
 const getAllEntries = async (res, model) => {
     const Model = getModel(model);
+    const options = getOptions(model);
 
-    const entries = await Model.findAll();
+    const entries = await Model.findAll({ ...options });
 
     const entriesWithoutPasswords = entries.map((entry) => {
         return removePassword(entry.get());
@@ -48,18 +59,21 @@ const getAllEntries = async (res, model) => {
     res.status(200).json(entriesWithoutPasswords);
 };
 
-const getEntryById = async (res, model, id) => {
+const getEntryById = (res, model, id) => {
     const Model = getModel(model);
 
-    const entry = await Model.findByPk(id);
-
-    if(!entry) {
-    res.status(404).json(get404Error(model));
-    } else {
-        const entryWithoutPassword = removePassword(entry.get());
+    const options = getOptions(model);
+  
+    return Model.findByPk(id, { ...options }).then((entry) => {
+      if (!entry) {
+        res.status(404).json(get404Error(model));
+      } else {
+        const entryWithoutPassword = removePassword(entry.dataValues);
+  
         res.status(200).json(entryWithoutPassword);
-    };
-};
+      }
+    });
+  };
 
 const updateEntry = async (res, model, id, changes) => {
     const Model = getModel(model);
