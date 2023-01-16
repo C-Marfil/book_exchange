@@ -10,10 +10,10 @@ module.exports = (connection, DataTypes) => {
                     msg: 'We need your name',
                   },
                 notEmpty: {
-                args: [true],
-                msg: 'Name cannot be empty',
+                    args: [true],
+                    msg: 'Name cannot be empty',
                 },
-            }
+            },
         },
         email: {
             type: DataTypes.STRING,
@@ -26,7 +26,7 @@ module.exports = (connection, DataTypes) => {
                 notNull: {
                     args: [true],
                     msg: 'We need your email',
-                  },
+                },
             },
         },
         password: {
@@ -40,13 +40,14 @@ module.exports = (connection, DataTypes) => {
                 notNull: {
                     args: [true],
                     msg: 'We need a password',
-                  },
+                },
             },
         },
     };
 
     const ReaderModel = connection.define('Reader', schema, {
         timestamps: false
-      });
+    });
+
     return ReaderModel;
 };

@@ -1,5 +1,3 @@
-
-
 module.exports = (connection, DataTypes) => {
     const schema = {
         genre: {
@@ -14,13 +12,14 @@ module.exports = (connection, DataTypes) => {
                 notEmpty: {
                     args: [true],
                     msg: 'Genre field cannot be empty',
-                    },
-            }
-        }
+                },
+            },
+        },
     };
 
     const GenreModel = connection.define('Genre', schema, { 
         timestamps: false 
     });
+    
     return GenreModel;
 };

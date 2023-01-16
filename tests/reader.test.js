@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const request = require('supertest');
+
 const { Reader } = require('../src/models');
+
 const app = require('../src/app');
 
 describe('/readers', () => {
@@ -80,12 +82,19 @@ describe('/readers', () => {
     beforeEach(async () => {
       readers = await Promise.all([
         Reader.create({
-          name: 'Elizabeth Bennet',
-          email: 'future_ms_darcy@gmail.com',
+          name: 'Omnius',
+          email: 'future_machine_lord@gmail.com',
           password: 'sieteochonueve',
         }),
-        Reader.create({ name: 'Arya Stark', email: 'vmorgul@me.com', password: 'sieteochonueve' }),
-        Reader.create({ name: 'Lyra Belacqua', email: 'darknorth123@msn.org', password: 'sieteochonueve' }),
+        Reader.create({ 
+          name: 'Hoques', 
+          email: 'holdtherequest@gmail.com', 
+          password: 'sieteochonueve' 
+        }),
+        Reader.create({ 
+          name: 'Lyra Goldentongue', 
+          email: 'ilovenorthernlights@gmail.com', 
+          password: 'sieteochonueve' }),
       ]);
     });
 
@@ -131,19 +140,19 @@ describe('/readers', () => {
         const reader = readers[0];
         const response = await request(app)
           .patch(`/readers/${reader.id}`)
-          .send({ email: 'miss_e_bennet@gmail.com' });
+          .send({ email: 'erasmus@gmail.com' });
         const updatedReaderRecord = await Reader.findByPk(reader.id, {
           raw: true,
         });
 
         expect(response.status).to.equal(200);
-        expect(updatedReaderRecord.email).to.equal('miss_e_bennet@gmail.com');
+        expect(updatedReaderRecord.email).to.equal('erasmus@gmail.com');
       });
 
       it('returns a 404 if the reader does not exist', async () => {
         const response = await request(app)
           .patch('/readers/12345')
-          .send({ email: 'some_new_email@gmail.com' });
+          .send({ email: 'xerxes@gmail.com' });
 
         expect(response.status).to.equal(404);
         expect(response.body.error).to.equal('The reader could not be found.');

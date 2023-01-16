@@ -8,18 +8,19 @@ module.exports = (connection, DataTypes) => {
                 notNull: {
                     args: [true],
                     msg: 'We need the book title',
-                    },
+                },
                 notEmpty: {
                     args: [true],
                     msg: 'Book title cannot be empty',
-                    },
                 },
             },
+        },
         ISBN: DataTypes.STRING,
     };
 
     const BookModel = connection.define('Book', schema, {
         timestamps: false
-      });
+    });
+    
     return BookModel;
 }; 

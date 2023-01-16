@@ -1,6 +1,8 @@
 const { expect } = require('chai');
 const request = require('supertest');
+
 const { Book } = require('../src/models');
+
 const app = require('../src/app');
 
 describe('/books', () => {
@@ -72,6 +74,7 @@ describe('/books', () => {
         });
       });
     });
+    
     describe('GET /books/:id', () => {
       it('gets books record by id', async () => {
         const book = books[0];
