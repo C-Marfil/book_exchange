@@ -54,7 +54,6 @@ I would create the following Models:
 
 <details>
  <summary>Author ✅ </summary>
- Author and Genre are individual models to support searches (by Author, Genre or Book) through the library.
 
 | param | data type |
 |------|-------------|
@@ -62,11 +61,11 @@ I would create the following Models:
 | Name | STRING |
 | Book_ID | INT (FK)|
 
+Author and Genre are individual models to support searches (by Author, Genre or Book) through the library.
 </details>
 
 <details>
  <summary>Genre ✅ </summary>
- Author and Genre are individual models to support searches (by Author, Genre or Book) through the library.
  
 | param | data type |
 |------|-------------|
@@ -74,12 +73,12 @@ I would create the following Models:
 | Genre | STRING |
 | Book_ID | INT (FK)|
 
+Author and Genre are individual models to support searches (by Author, Genre or Book) through the library.
+
 </details>
 
 <details>
  <summary>Account 🚧 </summary>
- **STILL TO BE IMPLEMENTED**: <br/>
- For now, Account data is stored in the Reader Model.
 
 | param | data type |
 |------|-------------|
@@ -88,11 +87,14 @@ I would create the following Models:
 | Password | STRING |
 |Reader_ID | INT (FK)|
 
+**STILL TO BE IMPLEMENTED**: <br/>
+ For now, Account data is stored in the Reader Model.
+
 </details>
 
 <details>
  <summary>Loan 🚧 </summary>
- **STILL TO BE IMPLEMENTED**
+
 | param | data type |
 |------|-------------|
 | Loan_ID | INT (PK) |
@@ -102,6 +104,7 @@ I would create the following Models:
 | Account_N | INT (FK)|
 | Book_ID | INT (FK) |
 
+**STILL TO BE IMPLEMENTED**
 </details>
 
 ### Current Version
@@ -539,7 +542,7 @@ npm start # Start the app in your preferred port (3000 by default).
 </details>
 
 <details>
- <summary><code>DELETE</code> <code><b>/genres/{id}</b></code> <code>(deletes a genre entry by ID)</code></summary>
+ <summary><code>DELETE</code> <code><b>/genres/:id</b></code> <code>(deletes a genre entry by ID)</code></summary>
 
 #### Parameters and body content
 
@@ -562,7 +565,7 @@ npm start # Start the app in your preferred port (3000 by default).
 I have been using Mocha, Chai and Supertest to write test suites trying the functionality of the API. This is the result for the current version when running ``` npm test```:
 
 <details><summary>Test Results</summary>
-```bash
+<code>
 /authors
     with no records in the database
       POST /authors
@@ -580,7 +583,8 @@ I have been using Mocha, Chai and Supertest to write test suites trying the func
       DELETE /authors/:id
         ✔ deletes author record by id
         ✔ returns a 404 if the author does not exist
-
+</code>
+<code>
   /books
     with no records in the database
       POST /books
@@ -598,7 +602,8 @@ I have been using Mocha, Chai and Supertest to write test suites trying the func
       DELETE /books/:id
         ✔ deletes book record by id
         ✔ returns a 404 if the book does not exist
-
+</code>
+<code>
   /genres
     with no records in the database
       POST /genres
@@ -616,7 +621,8 @@ I have been using Mocha, Chai and Supertest to write test suites trying the func
       DELETE /genres/:id
         ✔ deletes genre record by id
         ✔ returns a 404 if the author does not exist
-
+</code>
+<code>
   /readers
     with no records in the database
       POST /readers
@@ -639,5 +645,6 @@ I have been using Mocha, Chai and Supertest to write test suites trying the func
 
 
   38 passing (3s)
-```
+</code>
 </details>
+
