@@ -31,7 +31,7 @@ I would create the following Models:
 | Name | STRING |
 | Book_ID | INT(FK) |
 
-**It will include the Book data of associated models.**
+**It will include the Book Model data of referenced entries.**
 </details>
 
 <details>
@@ -48,7 +48,7 @@ I would create the following Models:
 | Author_ID | INT (FK) |
 | Loan_ID | INT (FK)|
 
-**It will include the Reader, Genre and Author data of associated models.**
+**It will include the Reader, Genre and Author Model data of referenced entries.**
 
 </details>
 
