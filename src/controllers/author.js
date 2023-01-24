@@ -12,8 +12,7 @@ const authorGetAll = (_req, res) => getAllEntries(res, "author");
 
 const authorGetById = (req, res) => getEntryById(res, "author", req.params.id);
 
-const authorUpdate = (req, res) =>
-  updateEntry(res, "author", req.params.id, req.body);
+const authorUpdate = (req, res) => updateEntry(res, "author", req.params.id, req.body);
 
 const authorDelete = (req, res) => deleteEntry(res, "author", req.params.id);
 

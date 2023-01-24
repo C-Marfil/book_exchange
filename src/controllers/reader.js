@@ -12,8 +12,7 @@ const readerGetAll = (_req, res) => getAllEntries(res, "reader");
 
 const readerGetById = (req, res) => getEntryById(res, "reader", req.params.id);
 
-const readerUpdate = (req, res) =>
-  updateEntry(res, "reader", req.params.id, req.body);
+const readerUpdate = (req, res) => updateEntry(res, "reader", req.params.id, req.body);
 
 const readerDelete = (req, res) => deleteEntry(res, "reader", req.params.id);
 
