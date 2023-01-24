@@ -1,9 +1,9 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-const ReaderModel = require('./reader');
-const BookModel = require('./book');
-const AuthorModel = require('./author');
-const GenreModel = require('./genre');
+const ReaderModel = require("./reader");
+const BookModel = require("./book");
+const AuthorModel = require("./author");
+const GenreModel = require("./genre");
 
 const { PGDATABASE, PGUSER, PGPASSWORD, PGHOST, PGPORT } = process.env;
 
@@ -11,7 +11,7 @@ const setUpDatabase = () => {
   const connection = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
     host: PGHOST,
     port: PGPORT,
-    dialect: 'postgres',
+    dialect: "postgres",
     logging: false,
   });
 
@@ -27,7 +27,7 @@ const setUpDatabase = () => {
   Book.belongsTo(Reader);
   Author.hasMany(Book);
 
-  connection.sync({alter: true});
+  connection.sync({ alter: true });
   return {
     Reader,
     Book,
