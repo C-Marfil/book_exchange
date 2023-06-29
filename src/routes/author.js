@@ -15,4 +15,8 @@ router
   .patch(authorController.authorUpdate)
   .delete(authorController.authorDelete);
 
+router
+  .route("/author/:name")
+  .get(authorController.authorSearch);
+  
 module.exports = router;

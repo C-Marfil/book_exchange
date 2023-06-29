@@ -15,4 +15,8 @@ router
   .patch(bookController.bookUpdate)
   .delete(bookController.bookDelete);
 
+  router
+  .route("/book/:title")
+  .get(bookController.bookSearch);
+
 module.exports = router;

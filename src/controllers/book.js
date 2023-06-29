@@ -4,6 +4,7 @@ const {
   getEntryById,
   updateEntry,
   deleteEntry,
+  getEntryBySearch,
 } = require("./helper");
 
 const bookCreate = (req, res) => createEntry(res, "book", req.body);
@@ -16,10 +17,13 @@ const bookUpdate = (req, res) => updateEntry(res, "book", req.params.id, req.bod
 
 const bookDelete = (req, res) => deleteEntry(res, "book", req.params.id);
 
+const bookSearch = (req, res) => getEntryBySearch(res, "book", "title", req.params.title);
+
 module.exports = {
   bookCreate,
   bookGetAll,
   bookGetById,
   bookUpdate,
   bookDelete,
+  bookSearch,
 };

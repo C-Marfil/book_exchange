@@ -1,4 +1,5 @@
 const { Book, Reader, Author, Genre } = require("../models");
+const { Op } = require("sequelize");
 
 const get404Error = (model) => ({ error: `The ${model} could not be found.` });
 
@@ -60,6 +61,28 @@ const getAllEntries = async (res, model) => {
   res.status(200).json(entriesWithoutPasswords);
 };
 
+const getEntryBySearch = (res, model, searchField, searchValue) => {
+  const Model = getModel(model);
+
+  const options = getOptions(model);
+
+  const whereClause = {
+    [searchField]: {
+      [Op.iLike]: `%${searchValue}%`,
+    },
+  };
+
+  return Model.findOne({ where: whereClause, ...options }).then((entry) => {
+    if (!entry) {
+      res.status(404).json(get404Error(model));
+    } else {
+      const entryWithoutPassword = removePassword(entry.dataValues);
+
+      res.status(200).json(entryWithoutPassword);
+    }
+  });
+};
+
 const getEntryById = (res, model, id) => {
   const Model = getModel(model);
 
@@ -110,4 +133,5 @@ module.exports = {
   getEntryById,
   updateEntry,
   deleteEntry,
+  getEntryBySearch,
 };
