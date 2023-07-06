@@ -6,7 +6,7 @@ const {
   deleteEntry,
 } = require("./helper");
 
-const readerCreate = (req, res) => createEntry(res, "reader", req.body);
+const readerCreate = (req, res) => createEntry(res, "reader", req.body, "email");
 
 const readerGetAll = (_req, res) => getAllEntries(res, "reader");
 

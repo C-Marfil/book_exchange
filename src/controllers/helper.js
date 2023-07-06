@@ -31,19 +31,26 @@ const getModel = (model) => {
   return models[model];
 };
 
-const createEntry = async (res, model, body) => {
-  const Model = getModel(model);
+const createEntry = async (res, modelName, data, uniqueField) => {
+  const Model = getModel(modelName);
 
   try {
-    const newEntry = await Model.create(body);
+    const [entry, created] = await Model.findOrCreate({
+      where: { [uniqueField]: data[uniqueField] },
+      defaults: data,
+    });
 
-    const newEntryMinusPassword = removePassword(newEntry.get());
-
-    res.status(201).json(newEntryMinusPassword);
+    if (!created) {
+      res.status(200).json({ message: "Entry already exists", entry });
+    } else {
+      res.status(201).json({ message: "Entry created successfully", entry });
+    }
   } catch (error) {
-    const errorMessages = error.errors?.map((e) => e.message);
-
-    res.status(400).json({ errors: errorMessages });
+    if (error.name === "SequelizeUniqueConstraintError") {
+      res.status(200).json({ message: "Entry already exists", entry: error.errors[0].instance });
+    } else {
+      res.status(500).json({ message: "Error creating entry", error });
+    }
   }
 };
 

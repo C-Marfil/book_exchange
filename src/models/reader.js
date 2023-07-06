@@ -3,45 +3,39 @@ module.exports = (connection, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
       validate: {
         notNull: {
-          args: [true],
-          msg: "We need your name",
+          arg: [true],
+          msg: "Please provide a name",
         },
         notEmpty: {
           args: [true],
-          msg: "Name cannot be empty",
+          msg: "Name field cannot be empty",
         },
       },
     },
     email: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
       validate: {
-        isEmail: {
-          arg: true,
-          msg: "Make sure this is a valid email",
-        },
         notNull: {
+          arg: [true],
+          msg: "Please provide an email",
+        },
+        notEmpty: {
           args: [true],
-          msg: "We need your email",
+          msg: "Email field cannot be empty",
+        },
+        isEmail: {
+          args: [true],
+          msg: "Please provide a valid email",
         },
       },
     },
-    password: {
+    profilePicture: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: {
-          args: [8],
-          msg: "Please make sure your password is at least 8 characters long",
-        },
-        notNull: {
-          args: [true],
-          msg: "We need a password",
-        },
-      },
+      allowNull: true,
     },
   };
 

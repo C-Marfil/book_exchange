@@ -6,7 +6,7 @@ const {
   deleteEntry,
 } = require("./helper");
 
-const genreCreate = (req, res) => createEntry(res, "genre", req.body);
+const genreCreate = (req, res) => createEntry(res, "genre", req.body, "genre");
 
 const genreGetAll = (_req, res) => getAllEntries(res, "genre");
 

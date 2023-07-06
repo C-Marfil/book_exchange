@@ -7,7 +7,7 @@ const {
   getEntryBySearch,
 } = require("./helper");
 
-const bookCreate = (req, res) => createEntry(res, "book", req.body);
+const bookCreate = (req, res) => createEntry(res, "book", req.body, "title");
 
 const bookGetAll = (_req, res) => getAllEntries(res, "book");
 
