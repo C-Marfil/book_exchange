@@ -16,6 +16,10 @@ module.exports = (connection, DataTypes) => {
       },
     },
     reason: DataTypes.STRING,
+    available: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   };
 
   const BookModel = connection.define("Book", schema, {
